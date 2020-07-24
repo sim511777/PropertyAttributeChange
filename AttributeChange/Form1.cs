@@ -21,6 +21,7 @@ namespace AttributeChange {
 
         private void propertyGrid2_PropertyValueChanged(object s, PropertyValueChangedEventArgs e) {
             SetPropertyAttributeReadOnly(typeof(MyClass), "Item", option.ReadOnly);
+            SetPropertyAttributeBrowsable(typeof(MyClass), "Item", option.Browsable);
             SetPropertyAttributeDisplayName(typeof(MyClass), "Item", option.DisplayName);
             propertyGrid1.Refresh();
         }
@@ -31,6 +32,10 @@ namespace AttributeChange {
 
         public static void SetPropertyAttributeDisplayName(Type type, string propertyName, string value) {
             SetPropertyAttributeField(type, propertyName, typeof(DisplayNameAttribute), "_displayName", value);
+        }
+
+        public static void SetPropertyAttributeBrowsable(Type type, string propertyName, bool value) {
+            SetPropertyAttributeField(type, propertyName, typeof(BrowsableAttribute), "browsable", value);
         }
 
         public static void SetPropertyAttributeField(Type type, string propertyName, Type attributeType, string attributeFieldName, object attributeFieldValue) {
@@ -50,5 +55,6 @@ namespace AttributeChange {
     public class AttributeOption {
         public string DisplayName { get; set; } = "이름";
         public bool ReadOnly { get; set; } = false;
+        public bool Browsable { get; set; } = true;
     }
 }
